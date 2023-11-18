@@ -34,3 +34,16 @@ systemctl start docker
 apt-get -y install apt-transport-https ca-certificates curl software-properties-common
 service docker restart
 sudo docker version
+
+
+
+#挂载硬盘（旧）
+fdisk -l
+mkdir /data
+mount /dev/sdb /data
+mount
+设置自动挂载
+blkid #获取uuid
+vim /etc/fstab
+UUID=07280fed-e798-49d4-866b-d3443ca11a18 /backup            ext4    defaults        0       2 #不导出记录，普通硬盘开机检查顺序
+reboot
