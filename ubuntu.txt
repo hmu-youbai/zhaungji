@@ -21,3 +21,16 @@ sudo apt-get install openssh-server
 sudo apt-get install openssh-server
 sudo service ssh restart
 sudo service ssh status
+
+
+#安装docker
+apt-get remove docker docker-engine docker.io containerd runc
+sudo apt update sudo apt upgrade
+apt-get install ca-certificates curl gnupg lsb-release
+curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
+apt-get install docker-ce docker-ce-cli containerd.io
+systemctl start docker
+apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+service docker restart
+sudo docker version
