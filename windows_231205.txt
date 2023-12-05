@@ -1,0 +1,12 @@
+官网获取安装文件  https://www.microsoft.com/zh-cn/software-download/windows10
+
+（如果需要修改mac：3E-CC-1F-3D-B1-9F,mac地址修改工具）
+安装结束后：安装360→驱动大师安装驱动
+安装2345好压
+安装dll工具，安装装机四件套
+
+
+
+
+
+
