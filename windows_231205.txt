@@ -22,6 +22,7 @@
 11.anaconda安装，https://www.anaconda.com/download/,安装的4个选项全选
 12.安装visual studio code 安装选项全默认，不需要额外内容
 13.安装wps，全默认，尽管他有点流氓
+14.安装官网的python，默认加选项全选
 
 
 
