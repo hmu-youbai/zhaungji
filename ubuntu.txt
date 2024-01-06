@@ -64,3 +64,20 @@ install -Dm755 ./v2ray/v2ray /usr/local/bin/v2ray
  yum install installer_redhat_arm64_2.2.4.6.rpm
 sudo systemctl start v2raya.service
 sudo systemctl enable v2raya.service
+
+docker run -d \
+  --cap-add=NET_ADMIN \
+  -p 2017:2017 \
+  -p 20170-20172:20170-20172 \
+  --restart=always \
+  --name v2raya \
+  -e V2RAYA_LOG_FILE=/tmp/v2raya.log \
+  -v /etc/v2raya:/etc/v2raya \
+  mzz2017/v2raya:latest
+部分网络问题，可以用docker代理转发
+
+export http_proxy=http://localhost:20172
+unset http_proxy
+
+
+
