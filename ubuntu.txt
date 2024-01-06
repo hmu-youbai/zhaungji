@@ -79,5 +79,9 @@ docker run -d \
 export http_proxy=http://localhost:20172
 unset http_proxy
 
+对于github：
+git config --global http.proxy http://127.0.0.1:20172
+
+
 
 
