@@ -47,3 +47,20 @@ blkid #获取uuid
 vim /etc/fstab
 UUID=07280fed-e798-49d4-866b-d3443ca11a18 /backup            ext4    defaults        0       2 #不导出记录，普通硬盘开机检查顺序
 reboot
+
+
+
+
+
+
+
+
+#服务器部署v2ray和v2rayA
+wget https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
+unzip v2ray-linux-64.zip -d ./v2ray
+mkdir -p /usr/local/share/v2ray && cp ./v2ray/*dat /usr/local/share/v2ray
+install -Dm755 ./v2ray/v2ray /usr/local/bin/v2ray
+下载v2rayA并安装
+ yum install installer_redhat_arm64_2.2.4.6.rpm
+sudo systemctl start v2raya.service
+sudo systemctl enable v2raya.service
