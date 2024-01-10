@@ -90,5 +90,71 @@ unset http_proxy
 git config --global http.proxy http://127.0.0.1:20172
 
 
+#安装cws
+cd ~
+mkdir cws && cd cws
+mkdir -p data/config
+
+
+export MONGODB_PASSWORD=password  # MongoDB 密码
+export INITIAL_ADMIN_PASSWORD=password  # 初始管理员密码
+
+
+docker run -it --rm \
+  -v $PWD/data/config:/tmp/config \
+  ghcr.io/chatpire/chatgpt-web-share:latest \
+  python /app/backend/manage.py create_config -O /tmp/config --generate-secrets --mongodb-url "mongodb://cws:${MONGODB_PASSWORD}@mongo:27017" --initial-admin-password "${INITIAL_ADMIN_PASSWORD}" --chatgpt-base-url http://ninja:7999/backend-api/
+
+
+echo "TZ=Asia/Shanghai" > .env
+echo "MONGO_INITDB_DATABASE=cws" >> .env
+echo "MONGO_INITDB_ROOT_USERNAME=cws" >> .env
+echo "MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD" >> .env
+
+
+
+version: "3"
+
+services:
+  chatgpt-web-share:
+    image: ghcr.io/chatpire/chatgpt-web-share:latest
+    container_name: cws
+    restart: unless-stopped
+    ports:
+      - 5000:80
+    volumes:
+      - ./data:/app/backend/data
+    environment:
+      - TZ=${TZ}
+      - CWS_CONFIG_DIR=/app/backend/data/config
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo:6.0
+    restart: always
+    # ports:
+    #   - 27017:27017
+    volumes:
+      - ./mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+
+  ninja:
+    image: ghcr.io/gngpp/ninja:latest
+    container_name: ninja
+    restart: unless-stopped
+    command: run --disable-webui
+    ports:
+      - "7999:7999"
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - "./har/gpt3:/root/.gpt3"
+      - "./har/gpt4:/root/.gpt4"
+
 
 
