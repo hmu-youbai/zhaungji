@@ -61,6 +61,12 @@ reboot
 
 
 bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/master/install.sh)
+sudo nano /etc/default/grub
+ipv6.disable=1
+GRUB_CMDLINE_LINUX="crashkernel=auto rd.lvm.lv=centos/root rd.lvm.lv=centos/swap ipv6.disable=1"
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+sudo reboot
+
 
 #服务器部署v2ray和v2rayA
 wget https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
