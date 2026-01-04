@@ -56,6 +56,10 @@ UUID=07280fed-e798-49d4-866b-d3443ca11a18 /backup            ext4    defaults   
 reboot
 
 
+安装x-ui
+bash <(curl -Ls https://raw.githubusercontent.com/FranzKafkaYu/x-ui/956bf85bbac978d56c0e319c5fac2d6db7df9564/install.sh) 0.3.4.4
+
+
 
 
 
